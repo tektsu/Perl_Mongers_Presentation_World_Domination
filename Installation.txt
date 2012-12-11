@@ -1,0 +1,24 @@
+Install Debian Wheezy, which has perl 5.10.2
+
+Upgrade gcc to 4.7
+
+	sudo apt-get install gcc-4.7
+
+Install bcm2835 c libraries: http://www.open.com.au/mikem/bcm2835/
+
+	tar zxvf bcm2835-1.14.tar.gz
+	cd bcm2835-1.14./configure
+	make
+	sudo make check
+	sudo make install
+
+Install http://search.cpan.org/~mikem/Device-BCM2835-1.3/
+
+	tar xzvf Device-BCM2835-1.3.tar.gz
+	cd Device-BCM2835-1.3
+	perl Makefile.PL
+	make
+	sudo make test # Note, it fails some tests; install anyway
+	sudo make install
+
+
