@@ -9,7 +9,7 @@ Device::BCM2835::init() || die "Could not init library";
 
 # Blink pin:
 # Set RPi pin to be an output
-my $pin = Device::BCM2835::RPI_GPIO_P1_10; 
+my $pin = Device::BCM2835::RPI_GPIO_P1_18;
 Device::BCM2835::gpio_fsel($pin, Device::BCM2835::BCM2835_GPIO_FSEL_OUTP);
 
 while (1) {
