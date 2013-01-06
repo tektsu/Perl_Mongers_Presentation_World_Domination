@@ -30,8 +30,6 @@ sub handlemsg {
 	return unless exists $validMessages{$message->[0]};
 
 	if ($message->[0] eq '/1/push1' && $message->[2]) {
-		$pwm->setDutyCycle(0);
-		$pwm->deactivate;
 		exit;
 	}
 
