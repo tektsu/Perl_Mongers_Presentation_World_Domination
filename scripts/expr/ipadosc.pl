@@ -8,10 +8,7 @@ use RPi::PWM;
 
 my %validMessages = map { $_ => undef } qw|/1/toggle14 /1/push1 /1/fader1|;
 
-my $pwm = RPi::PWM->new;
-$pwm->setDutyCycle(0);
-$pwm->setFrequency(100);
-$pwm->activate;
+my $pwm = RPi::PWM->new(dutyCycle => 0, frequency => 100, activate => 1);
 
 Device::BCM2835::init() || die "Could not init library";
 
