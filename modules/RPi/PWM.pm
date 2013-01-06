@@ -29,9 +29,16 @@ sub setDutyCycle {
 	my $self = shift;
 	my ($value) = @_;
 
-	$value = 0 if $value < 0;
+	$value ||= 1;;
 	$value = 99 if $value > 99;
 	$self->_write('duty', $value);
+}
+
+sub getDutyCycle {
+	my $self = shift;
+	my ($value) = @_;
+
+	return $self->_read('duty');
 }
 
 sub setFrequency {
@@ -41,6 +48,18 @@ sub setFrequency {
 	$value = 0 if $value < 0;
 	$value = 16000 if $value > 16000;
 	$self->_write('frequency', $value);
+}
+
+sub _read {
+	my $self = shift;
+	my ($file) = @_;
+
+	open my $fh, '<', "$controlDir/$file"
+		or die "Unable to open $controlDir/$file: $!\n";
+	my $value = <$fh>;
+	close $fh;
+
+	return $value;
 }
 
 sub _write {
