@@ -3,6 +3,8 @@ use Device::BCM2835;
 use strict;
 use warnings;
 
+exec "sudo $0 " . join(' ', @ARGV) if $<;
+
 #Device::BCM2835::set_debug(1);
 Device::BCM2835::init() || die "Could not init library";
 

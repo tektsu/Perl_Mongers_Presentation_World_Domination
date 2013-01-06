@@ -5,6 +5,8 @@ use lib qw|../../modules|;
 use RPi::PWM;
 use Time::HiRes qw/usleep/;
 
+exec "sudo $0 " . join(' ', @ARGV) if $<;
+
 my $pwm = RPi::PWM->new(dutyCycle => 0, frequency => 100, activate => 1);
 for (1 .. 3) {
 	for my $dutyCycle (0 .. 99) {
@@ -16,5 +18,4 @@ for (1 .. 3) {
 		usleep(5000);
 	}
 }
-
 
