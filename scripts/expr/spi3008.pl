@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use lib qw|../../modules|;
 use Device::BCM2835;
+use RPi::MCP3008;
 use RPi::PWM;
 
 exec "sudo $0 " . join(' ', @ARGV) if $<;
@@ -20,18 +21,15 @@ Device::BCM2835::spi_begin();
 use constant MAX_VALUE => 1023;
 use constant JITTER    => 5;
 
-my $pwm = RPi::PWM->new;
-$pwm->setDutyCycle(0);
-$pwm->setFrequency(100);
-$pwm->activate;
+my $pwm = RPi::PWM->new(dutyCycle => 0, frequency => 100, activate => 1);
+
+my $adc = RPi::MCP3008->new;
 
 my $oldValue = MAX_VALUE + (2 * JITTER);
 while (1) {
 
 	# Read the value on CH0
-	my $buffer = pack('H*', '018000');
-	Device::BCM2835::spi_transfern($buffer);
-	my $value = hex(unpack('H*', $buffer)) & 0x3ff;
+	my $value = $adc->readChannel(0);
 
 	# De-jitter
 	if (abs($value - $oldValue) <= JITTER) {
@@ -46,12 +44,5 @@ while (1) {
 	# Look for next value
 	$oldValue = $value;
 	Device::BCM2835::delay(100); # Milliseconds
-}
-
-END {
-	$pwm->deactivate;
-	$pwm->setDutyCycle(0);
-
-	Device::BCM2835::spi_end();
 }
 
