@@ -6,6 +6,7 @@ use RPi::PWM;
 use Time::HiRes qw/usleep/;
 
 exec "sudo $0 " . join(' ', @ARGV) if $<;
+$SIG{INT} = sub { exit; };
 
 my $pwm = RPi::PWM->new(dutyCycle => 0, frequency => 100, activate => 1);
 for (1 .. 3) {

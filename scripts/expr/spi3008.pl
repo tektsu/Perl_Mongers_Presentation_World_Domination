@@ -9,6 +9,7 @@ use RPi::PWM;
 exec "sudo $0 " . join(' ', @ARGV) if $<;
 
 Device::BCM2835::init() || die "Could not init library";
+$SIG{INT} = sub { exit; };
 
 use constant MAX_VALUE => 1023;
 use constant JITTER    => 5;

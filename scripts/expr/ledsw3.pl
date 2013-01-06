@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 exec "sudo $0 " . join(' ', @ARGV) if $<;
+$SIG{INT} = sub { exit; };
 
 #Device::BCM2835::set_debug(1);
 Device::BCM2835::init() || die "Could not init library";

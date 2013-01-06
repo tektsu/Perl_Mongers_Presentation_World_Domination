@@ -7,6 +7,7 @@ use Net::OpenSoundControl::Server;
 use RPi::PWM;
 
 exec "sudo $0 " . join(' ', @ARGV) if $<;
+$SIG{INT} = sub { exit; };
 
 my %validMessages = map { $_ => undef } qw|/1/toggle14 /1/push1 /1/fader1|;
 
