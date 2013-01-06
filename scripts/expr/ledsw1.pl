@@ -2,6 +2,10 @@
 use Device::BCM2835;
 use strict;
 use warnings;
+use lib qw|../../modules|;
+use RPi::Button;
+use RPi::Led;
+use Time::HiRes qw/gettimeofday tv_interval/;
 
 exec "sudo $0 " . join(' ', @ARGV) if $<;
 $SIG{INT} = sub { exit; };
@@ -9,23 +13,32 @@ $SIG{INT} = sub { exit; };
 #Device::BCM2835::set_debug(1);
 Device::BCM2835::init() || die "Could not init library";
 
-my $outputPin = Device::BCM2835::RPI_GPIO_P1_12; 
-Device::BCM2835::gpio_fsel($outputPin, Device::BCM2835::BCM2835_GPIO_FSEL_OUTP);
-
-my $inputPin0  = Device::BCM2835::RPI_GPIO_P1_11;
-my $inputPin1  = Device::BCM2835::RPI_GPIO_P1_13;
-my $inputPin2  = Device::BCM2835::RPI_GPIO_P1_15;
+my $red = RPi::Led->new(
+	name    => 'Red LED',
+	pin     => Device::BCM2835::RPI_GPIO_P1_12,
+	onTime  => 750,
+	offTime => 250);
+my $topButton = RPi::Button->new(
+	name => 'Top Button',
+	pin  => Device::BCM2835::RPI_GPIO_P1_11);
+my $middleButton = RPi::Button->new(
+	name => 'Middle Button',
+	pin  => Device::BCM2835::RPI_GPIO_P1_13);
+my $bottomButton = RPi::Button->new(
+	name => 'Bottom Button',
+	pin  => Device::BCM2835::RPI_GPIO_P1_15);
+my $buttons = [ $topButton, $middleButton, $bottomButton ];
 
 while (1) {
-	print "Button 0: " . Device::BCM2835::gpio_lev($inputPin0) . "\n";
-	print "Button 1: " . Device::BCM2835::gpio_lev($inputPin1) . "\n";
-	print "Button 2: " . Device::BCM2835::gpio_lev($inputPin2) . "\n";
-	# Turn it on
-	Device::BCM2835::gpio_set($outputPin);
-	Device::BCM2835::delay(500); # Milliseconds
-
-	# Turn it off
-	Device::BCM2835::gpio_clr($outputPin);
-	Device::BCM2835::delay(500); # Milliseconds
+	$red->updateBlink;
+	for my $button (@$buttons) {
+		my ($changed, $state, $name) = $button->getState;
+		if ($changed) {
+			print "$name: " . ($state ? "On" : "Off") . "\n";
+		}
+	}
+	last if $topButton->getState && $bottomButton->getState;
 }
+
+print "Done\n";
 
