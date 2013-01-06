@@ -10,14 +10,6 @@ exec "sudo $0 " . join(' ', @ARGV) if $<;
 
 Device::BCM2835::init() || die "Could not init library";
 
-Device::BCM2835::spi_begin();
-
-#Device::BCM2835::spi_setBitOrder(Device::BCM2835::BCM2835_SPI_BIT_ORDER_MSBFIRST);
-#Device::BCM2835::spi_setDataMode(Device::BCM2835::BCM2835_SPI_MODE0);
-#Device::BCM2835::spi_setClockDivider(Device::BCM2835::BCM2835_SPI_CLOCK_DIVIDER_65536);
-#Device::BCM2835::spi_chipSelect(Device::BCM2835::BCM2835_SPI_CS0);
-#Device::BCM2835::spi_setChipSelectPolarity(Device::BCM2835::BCM2835_SPI_CS0, 0);
-
 use constant MAX_VALUE => 1023;
 use constant JITTER    => 5;
 
@@ -31,7 +23,7 @@ while (1) {
 	# Read the value on CH0
 	my $value = $adc->readChannel(0);
 
-	# De-jitter
+	# De-jitter - don't recognize changes of < abt 16mV
 	if (abs($value - $oldValue) <= JITTER) {
 		next unless $value != $oldValue && ($value == 0 || $value == MAX_VALUE);
 	}
