@@ -7,11 +7,15 @@ my $controlDir = '/sys/class/rpi-pwm/pwm0';
 
 sub new {
 	my $class = shift;
+	my %args  = @_;
 
 	my $self = {};
 	bless $self, $class;
 
 	$self->deactivate;
+	$self->setDutyCycle($args{dutyCycle}) if exists $args{dutyCycle};
+	$self->setFrequency($args{frequency}) if exists $args{frequency};
+	$self->activate if $args{activate};
 
 	return $self;
 }
@@ -70,6 +74,13 @@ sub _write {
 		or die "Unable to open $controlDir/$file: $!\n";
 	print $fh $value;
 	close $fh;
+}
+
+sub DESTROY {
+	my $self = shift;
+
+	$self->deactivate;
+	$self->setDutyCycle(0);
 }
 
 1;
