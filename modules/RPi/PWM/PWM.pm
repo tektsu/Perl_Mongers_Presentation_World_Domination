@@ -10,6 +10,7 @@ sub new {
 
 	my $self = $class->SUPER::new;
 
+	$self->_write('mode', '[pwm] servo audio');
 	$self->setDutyCycle($args{dutyCycle}) if exists $args{dutyCycle};
 	$self->setFrequency($args{frequency}) if exists $args{frequency};
 	$self->activate if $args{activate};
