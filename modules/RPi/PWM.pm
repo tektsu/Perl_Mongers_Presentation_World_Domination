@@ -25,6 +25,12 @@ sub deactivate {
 	shift->_write('active', 0);
 }
 
+sub delayed {
+	my $self = shift;
+	my $value = shift;
+	$self->_write('delayed', $value ? 1 : 0);
+}
+
 sub _read {
 	my $self = shift;
 	my ($file) = @_;
