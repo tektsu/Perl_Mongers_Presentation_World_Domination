@@ -1,0 +1,516 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+    <title>World Domination (with Perl!)</title>
+    <!-- metadata -->
+    <meta name="generator" content="S5" />
+    <meta name="version" content="S5 1.1" />
+    <meta name="presdate" content="20130207" />
+    <meta name="author" content="Douglas E. Miles" />
+    <meta name="company" content="Phoenix Perl Mongers" />
+    <!-- configuration parameters -->
+    <meta name="defaultView" content="slideshow" />
+    <meta name="controlVis" content="hidden" />
+    <!-- style sheet links -->
+    <link rel="stylesheet" href="ui/rrp/slides.css" type="text/css" media="projection" id="slideProj" />
+    <link rel="stylesheet" href="ui/rrp/outline.css" type="text/css" media="screen" id="outlineStyle" />
+    <link rel="stylesheet" href="ui/rrp/print.css" type="text/css" media="print" id="slidePrint" />
+    <link rel="stylesheet" href="ui/rrp/opera.css" type="text/css" media="projection" id="operaFix" />
+    <!-- S5 JS -->
+    <script src="ui/rrp/slides.js" type="text/javascript"></script>
+  </head>
+  <body>
+
+    <div class="layout">
+      <div id="controls"><!-- DO NOT EDIT --></div>
+      <div id="currentSlide"><!-- DO NOT EDIT --></div>
+      <div id="header"></div>
+      <div id="footer">
+        <h1>Liquid Web Scottsdale - 7 Feb 2013</h1>
+        <h2>World Domination (with Perl!)</h2>
+      </div>
+    </div>
+
+    <div class="presentation">
+
+      <div class="slide">
+        <h1>World Domination (with Perl!)</h1>
+		<h2>I Could Rule The World If I Could Only Get The Parts</h2>
+		<div style="float:right;margin:20px;">
+			<img src="waitresses.jpg" />
+		</div>
+        <h3>Steve Baker</h3>
+        <h4>Phoenix.pm</h4>
+      </div>
+
+      <div class="slide">
+        <h1>Let There Be Light</h1>
+		<ul>
+			<li>So... You have a light...</li>
+			<li>You want it to be on...</li>
+			<li>...and you want to use Perl to make that happen!</li>
+			<li>How?</li>
+		</ul>
+		<div>
+			<img src="LEDs.gif" />
+		</div>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Let There Be Robots Too!</h1>
+		<div style="float:right;">
+			<img src="RobotSkillbadge.gif" />
+		</div>
+		<ul>
+			<li>If you can turn on a light with Perl, what's to stop you from controlling anything else?</li>
+			<ul>
+				<li>Home Automation</li>
+				<li>Robotics</li>
+				<li>Data Gathering</li>
+			</ul>
+			<li>World Domination!</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Raspberry Pi</h1>
+		<div style="float:right;">
+			<img src="300px-RaspberryPi.jpg" />
+		</div>
+		<ul>
+			<li>ARM Processor (Broadcom 2835 System on a Chip)</li>
+			<li>Linux</li>
+			<ul>
+				<li>Raspian (based on Debian)</li>
+				<li>Occidentalis (based on Raspian)</li>
+			</ul>
+			<li>700MHz (overclockable)</li>
+			<li>512MB RAM</li>
+			<li>SD Card for storage</li>
+			<li>$40</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Raspberry Pi</h1>
+		<div style="float:right;">
+			<img src="RaspberryPi-GPIO-Layout.png" width="75%"/>
+		</div>
+		<ul>
+			<li>GPIO Pins brought to connector on board</li>
+			<li>Basic Serial Communications</li>
+			<li>Pulse Width Modulation</li>
+			<li>SPI</li>
+			<li>I2C</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Occidentalis Linux</h1>
+		<ul>
+			<li>Based on Raspian (Debian)</li>
+			<li>Kernel modules for common electronic devices loaded</li>
+			<li>I2C, SPI, 1-Wire support</li>
+			<li>Convenience Features</li>
+			<ul>
+				<li>sshd upon boot</li>
+				<li>Avahi daemon</li>
+				<li>Real-Time Clock support</li>
+			</ul>
+			<li>Perl 5.14.2</li>
+			<li>Raspian can do all this as well, but you have a lot more setup to do</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Python Considered Harmful</h1>
+		<div style="float:left;padding-right:1em;padding-bottom:1em;">
+			<img src="python_soul.png" />
+		</div>
+		<div style="float:right;padding-right:1em;padding-bottom:1em;margin-top:200px">
+			<img src="xkcd_python.png" />
+		</div>
+		<div style="font-size:50%;">
+		<pre>
+#!/usr/bin/python
+
+import smbus
+
+class Adafruit_I2C :
+
+  def __init__(self, address, bus=smbus.SMBus(0), debug=False):
+    self.address = address
+    self.bus = bus
+    self.debug = debug
+
+  def reverseByteOrder(self, data):
+    "Reverses the byte order of an int (16-bit) or long (32-bit) value"
+    # Courtesy Vishal Sapre
+    dstr = hex(data)[2:].replace('L','')
+    byteCount = len(dstr[::2])
+    val = 0
+    for i, n in enumerate(range(byteCount)):
+      d = data & 0xFF
+      val |= (d << (8 * (byteCount - i - 1)))
+      data >>= 8
+    return val
+
+  def write8(self, reg, value):
+    "Writes an 8-bit value to the specified register/address"
+    try:
+      self.bus.write_byte_data(self.address, reg, value)
+      if (self.debug):
+        print("I2C: Wrote 0x%02X to register 0x%02X" % (value, reg))
+    except IOError, err:
+      print "Error accessing 0x%02X: Check your I2C address" % self.address
+      return -1
+
+  def writeList(self, reg, list):
+    "Writes an array of bytes using I2C format"
+    try:
+      self.bus.write_i2c_block_data(self.address, reg, list)
+    except IOError, err:
+      print "Error accessing 0x%02X: Check your I2C address" % self.address
+      return -1
+
+  def readU8(self, reg):
+    "Read an unsigned byte from the I2C device"
+    try:
+      result = self.bus.read_byte_data(self.address, reg)
+      if (self.debug):
+        print "I2C: Device 0x%02X returned 0x%02X from reg 0x%02X" % (self.address, result & 0xFF, reg)
+      return result
+    except IOError, err:
+      print "Error accessing 0x%02X: Check your I2C address" % self.address
+      return -1
+
+  def readS8(self, reg):
+    "Reads a signed byte from the I2C device"
+    try:
+      result = self.bus.read_byte_data(self.address, reg)
+      if (self.debug):
+        print "I2C: Device 0x%02X returned 0x%02X from reg 0x%02X" % (self.address, result & 0xFF, reg)
+      if (result > 127):
+        return result - 256
+      else:
+        return result
+    except IOError, err:
+      print "Error accessing 0x%02X: Check your I2C address" % self.address
+      return -1
+		</pre>
+		</div>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Setup: Occidentalis</h1>
+		<ul>
+			<li>Easy!</li>
+			<li>Download OS image and copy to SD card</li>
+			<li>Insert card in Raspberry Pi and apply power</li>
+			<li>Follow on-screen instructions</li>
+			<li>Full instructions at <a href="http://learn.adafruit.com/adafruit-raspberry-pi-educational-linux-distro/occidentalis-v0-dot-2">http://learn.adafruit.com/adafruit-raspberry-pi-educational-linux-distro/occidentalis-v0-dot-2</a></li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Setup: Upgrade gcc</h1>
+		<ul>
+			<li>sudo apt-get update</li>
+			<li>sudo apt-get install gcc-4.7</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Setup: bcm2835 Library</h1>
+		<ul>
+			<li>wget http://www.open.com.au/mikem/bcm2835/bcm2835-1.14.tar.gz</li>
+			<li>tar xzvf bcm2835-1.14.tar.gz</li>
+			<li>cd bcm2835-1.14</li>
+			<li>./configure</li>
+			<li>make</li>
+			<li>sudo make check</li>
+			<li>sudo make install</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Setup: Install Device::BCM2835</h1>
+		<ul>
+			<li>wget http://search.cpan.org/CPAN/authors/id/M/MI/MIKEM/Device-BCM2835-1.3.tar.gz</li>
+			<li>cd Device-BCM2835-1.3</li>
+			<li>perl Makefile.PL</li>
+			<li>gcc-4.7 -shared -L/usr/local/lib -fstack-protector BCM2835.o -o blib/arch/auto/Device/BCM2835/BCM2835.so -lbcm2835 -lrt</li>
+			<li>make test</li>
+			<li>sudo make install</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Intro to Device::BCM2835</h1>
+		<ul>
+			<li>Wrapper around the bcm2835 library</li>
+			<li>Provides functions to read and modify the state of GPIO pins</li>
+			<li>This is your basic method of communication with the outside world</li>
+			<li>A major limitation: no interrupts. You must poll the pins and watch for changes.</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Intro to Device::BCM2835</h1>
+		<ul>
+			<li>GPIO Register Access Functions</li>
+			<ul>
+				<li><strong>gpio_fsel</strong> - Set the pin configuration</li>
+				<li><strong>gpio_lev</strong> - Get the logic level of a pin (high or low)</li>
+				<li><strong>gpio_set</strong> - Change the logic level of a pin to high</li>
+				<li><strong>gpio_clr</strong> - Change the logic level of a pin to low</li>
+				<li><strong>gpio_write</strong> - Change the logic level of a pin</li>
+				<li><strong>spi_begin</strong> - Begin SPI operations</li>
+				<li><strong>spi_transfern</strong> - Transfer bytes to and from the currently select SPI device</li>
+				<li><strong>spi_end</strong> - End SPI operations</li>
+			</ul>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Power Considerations</h1>
+		<div style="float:right;">
+			<img src="Lightning1.jpg" />
+		</div>
+		<ul>
+			<li>Current</li>
+			<li>Voltage</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Connecting an LED</h1>
+		<div style="width:400px; margin-left:auto; margin-right:auto;">
+			<img src="LED.png" />
+		</div>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Connecting a Button</h1>
+		<div style="width:400px; margin-left:auto; margin-right:auto;">
+			<img src="Button.png" />
+		</div>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Finally Some Perl Code!</h1>
+		<p>(About freakin' time...)</p>
+		<ul>
+			<li>LED Class</li>
+			<li>Button Class</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Our Demonstration Circuit</h1>
+		<div style="width:700px; margin-left:auto; margin-right:auto;">
+			<img src="PerlMongersFritzing.png" width="90%" />
+		</div>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Our Demonstration Circuit</h1>
+		<div style="width:800px; margin-left:auto; margin-right:auto;">
+			<img src="PerlMongersSchematic.png" width="90%"/>
+		</div>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Hello World</h1>
+		<p>A couple of simple programs to demonstrate the switches and LEDs</p>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Pulse Width Modulation</h1>
+		<div style="float:right;margin:10px;padding:10px;background:#ffffff;">
+			<img src="pwm.gif" />
+		</div>
+		<ul>
+			<li>Pins are digital, not analog</li>
+			<li>So how do we vary the brightness of the bulb?</li>
+			<li>Hint: Look at the title of this slide...</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>PWM Classes</h1>
+		<ul>
+			<li>Base class</li>
+			<li>PWM class</li>
+			<li>Servo class</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>LED Beat</h1>
+		<p>Using Pulse Width Modulation to make an LED beat</p>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Manual Dimmer Control</h1>
+		<ul>
+			<li>It would be nice to vary the brightness of the bulb with a knob</li>
+			<li>But the pins are still digital only</li>
+			<li>How do we deal with a continuously variable quantity in the world of 1s and 0s?</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Analog to Digital Conversion</h1>
+		<div style="float:right;margin:10px;padding:10px;background:#ffffff;">
+			<img src="a2d_2bits.jpg" />
+		</div>
+		<ul>
+			<li>Convert a voltage level to a stream of bits</li>
+			<li>I am using an MCP3008</li>
+			<li>8 input channels (I'm only using one)</li>
+			<li>10-bit resolution</li>
+			<li>Controlled through SPI</li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Processing SPI</h1>
+		<div style="width:900px; margin-left:auto; margin-right:auto;">
+			<img src="mcp3008-8bit.png" />
+		    <br />0000 0001 1000 0000 0000 0000
+		</div>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>MCP3008 Class</h1>
+		<p>More perl code!</p>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>An LED Dimmer Knob</h1>
+		<p>Even more perl code!!!</p>
+		<p>And another demo!</p>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Making Your Robot Walk</h1>
+		<div style="float:right;margin:10px;padding:10px;">
+			<img src="walking-usb-robot_7767.gif" />
+		</div>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Resources</h1>
+		<p>Places from which I Stole^H^H^H^H^HDerived Inspiration</p>
+		<ul>
+			<li>Adafruit: <a href="http://adafruit.com">http://adafruit.com</a></li>
+			<li>Occidentalis: <a href="http://learn.adafruit.com/adafruit-raspberry-pi-educational-linux-distro/occidentalis-v0-dot-2">http://learn.adafruit.com/adafruit-raspberry-pi-educational-linux-distro/occidentalis-v0-dot-2</a></li>
+			<li>Device::BCM2835: <a href="http://search.cpan.org/~mikem/Device-BCM2835-1.3/lib/Device/BCM2835.pm">http://search.cpan.org/~mikem/Device-BCM2835-1.3/lib/Device/BCM2835.pm</a></li>
+			<li>SPI Hardware Example: <a href="http://jeremyblythe.blogspot.com/2012/09/raspberry-pi-hardware-spi-analog-inputs.html">http://jeremyblythe.blogspot.com/2012/09/raspberry-pi-hardware-spi-analog-inputs.html</a></li>
+		</ul>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+      <div class="slide">
+        <h1>Q & (hopefully) A</h1>
+		<div style="width:460px; margin-left:auto; margin-right:auto;">
+			<img src="dice-question-mark-008.gif" />
+		</div>
+        <div class="handout">
+        [any material that should appear in print but not on the slide]
+        </div>
+      </div>
+
+  </body>
+
+</html>
