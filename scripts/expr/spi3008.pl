@@ -4,7 +4,7 @@ use warnings;
 use lib qw|../../modules|;
 use Device::BCM2835;
 use RPi::MCP3008;
-use RPi::PWM;
+use RPi::PWM::PWM;
 
 exec "sudo $0 " . join(' ', @ARGV) if $<;
 
@@ -14,7 +14,7 @@ $SIG{INT} = sub { exit; };
 use constant MAX_VALUE => 1023;
 use constant JITTER    => 5;
 
-my $pwm = RPi::PWM->new(dutyCycle => 0, frequency => 100, activate => 1);
+my $pwm = RPi::PWM::PWM->new(dutyCycle => 0, frequency => 100, activate => 1);
 
 my $adc = RPi::MCP3008->new;
 
